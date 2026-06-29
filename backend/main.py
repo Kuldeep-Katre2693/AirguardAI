@@ -3,6 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from backend.routers.cities import router as cities_router
 from backend.routers.weather import router as weather_router
 from backend.routers.forecast import router as forecast_router
+from backend.routers.dashboard import router as dashboard_router
 
 app = FastAPI(
     title="AirGuard AI",
@@ -22,6 +23,7 @@ app.add_middleware(
 app.include_router(cities_router)
 app.include_router(weather_router)
 app.include_router(forecast_router)
+app.include_router(dashboard_router)
 
 @app.get("/")
 def home():

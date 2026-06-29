@@ -1,6 +1,6 @@
 from fastapi import APIRouter, HTTPException
 
-from ml.predict import predict
+from backend.services.forecast_service import forecast_service
 
 router = APIRouter(
     prefix="/forecast",
@@ -12,25 +12,18 @@ router = APIRouter(
 def forecast(city: str, days: int = 5):
 
     try:
-
-        result = predict(
+        return forecast_service(
             city=city,
             days=days
         )
 
-        return result.to_dict(
-            orient="records"
-        )
-
     except FileNotFoundError as e:
-
         raise HTTPException(
             status_code=404,
             detail=str(e)
         )
 
     except Exception as e:
-
         raise HTTPException(
             status_code=500,
             detail=str(e)
